@@ -9,7 +9,6 @@ type HomePropsType = {
 };
 
 const Home: NextPage<HomePropsType> = ({ posts }) => {
-  console.log(posts.map((item) => item));
   return (
     <div>
       <Head>
@@ -34,8 +33,6 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
   const data = await client.getEntries<IPostFields>({
     content_type: 'post',
-    // select:
-    //   'fields.body, fields.title, fields.slug, fields.shortDescription, fields.post, fields.category',
   });
 
   return {

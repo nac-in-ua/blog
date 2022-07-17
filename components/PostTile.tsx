@@ -8,32 +8,11 @@ type PostTilePropsType = {
 };
 
 const formatDate = (date: string) => {
-  const dateTime = DateTime.fromISO(date);
-  return dateTime.toFormat("dd LLL yyyy 'at' hh:mm a");
-  // const dateTime = new Date(date);
-  // const userLocale = window.navigator.language;
-  // const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-
-  // const formatOptions = {
-  //   year: 'numeric',
-  //   month: 'long',
-  //   day: 'numeric',
-  //   hour: 'numeric',
-  //   minute: 'numeric',
-  //   hour12: false,
-  // };
-
-  // return new Intl.DateTimeFormat(userLocale, formatOptions).format(dateTime);
+  return DateTime.fromISO(date).toFormat('dd LLL yyyy HH:mm');
 };
 
 const PostTile = ({ post }: PostTilePropsType) => {
   const { title, poster, shortDescription, category, slug } = post.fields;
-  const options = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
 
   return (
     <div className="p-2 my-2 bg-slate-100">
