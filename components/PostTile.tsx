@@ -17,7 +17,7 @@ const PostTile = ({ post }: PostTilePropsType) => {
   return (
     <div className="p-2 my-2 bg-slate-100">
       <h2 className="font-bold mb-2 text-2xl">{title}</h2>
-      <h5>{formatDate(post.sys.createdAt)}</h5>
+      {/* <h5>{formatDate(post.sys.createdAt)}</h5> */}
       <div className="flex w-1/2">
         <Image
           src={`https:${poster?.fields.file.url || ''}`}
