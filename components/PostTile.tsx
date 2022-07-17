@@ -1,6 +1,5 @@
 import { IPost } from '../@types/generated/contentful';
 import Image from 'next/image';
-import Link from 'next/link';
 import { DateTime } from 'luxon';
 
 type PostTilePropsType = {
@@ -37,13 +36,7 @@ const PostTile = ({ post }: PostTilePropsType) => {
           </div>
         ))}
       </div>
-      <div className="flex justify-end">
-        <Link href={`/posts/${slug}`}>
-          <a className="flex rounded-lg w-36 h-10 bg-green-200 relative justify-center items-center">
-            Read more
-          </a>
-        </Link>
-      </div>
+      <div className="flex justify-end"></div>
     </div>
   );
 };

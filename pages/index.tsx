@@ -8,7 +8,17 @@ type HomePropsType = {
   posts: IPost[];
 };
 
+const sortedPosts = (posts: IPost[]) => {
+  return posts.sort((a, b) => {
+    return (
+      new Date(b.sys.createdAt).getTime() - new Date(a.sys.createdAt).getTime()
+    );
+  });
+};
+
 const Home: NextPage<HomePropsType> = ({ posts }) => {
+  console.log(posts);
+
   return (
     <div>
       <Head>
@@ -19,7 +29,7 @@ const Home: NextPage<HomePropsType> = ({ posts }) => {
       <nav className="flex h-10 mx-auto bg-slate-300 mb-10">navbar</nav>
       <main className="flex justify-center">
         <div className="flex w-3/4 flex-col">
-          {posts.map((post) => (
+          {sortedPosts(posts).map((post) => (
             <PostTile key={post.sys.id} post={post} />
           ))}
         </div>
