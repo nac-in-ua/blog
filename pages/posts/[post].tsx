@@ -2,6 +2,7 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
 import { IPost, IPostFields } from '../../@types/generated/contentful';
+import { Asset } from 'contentful';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { GetStaticPaths } from 'next';
@@ -11,14 +12,20 @@ type PostPropTypes = {
   post: IPost;
 };
 
+type ImageNode = {
+  data: {
+    target: Asset;
+  };
+};
+
 const renderOption = {
   renderNode: {
-    [BLOCKS.EMBEDDED_ASSET]: (node, children) => {
+    [BLOCKS.EMBEDDED_ASSET]: (node: any) => {
       return (
         <Image
           src={`https:${node.data.target.fields.file.url}`}
-          height={node.data.target.fields.file.details.image.height}
-          width={node.data.target.fields.file.details.image.width}
+          height={node.data.target.fields.file.details.image!.height}
+          width={node.data.target.fields.file.details.image!.width}
           alt={node.data.target.fields.title}
         />
       );
