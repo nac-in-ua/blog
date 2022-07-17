@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { IPost, IPostFields } from '../@types/generated/contentful';
 import client from '../contentful/contenful';
 import PostTile from '../components/PostTile';
+import { useState } from 'react';
 
 type HomePropsType = {
   posts: IPost[];
@@ -17,8 +18,6 @@ const sortedPosts = (posts: IPost[]) => {
 };
 
 const Home: NextPage<HomePropsType> = ({ posts }) => {
-  console.log(posts);
-
   return (
     <div>
       <Head>
