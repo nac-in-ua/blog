@@ -2,6 +2,7 @@ import { IPost } from '../@types/generated/contentful';
 import Image from 'next/image';
 import Link from 'next/link';
 import { DateTime } from 'luxon';
+import CategoriesBadge from './CategoriesBadge';
 
 type PostTilePropsType = {
   post: IPost;
@@ -14,13 +15,11 @@ const formatDate = (date: string) => {
 };
 
 const PostTile = ({ post }: PostTilePropsType) => {
-  const { title, poster, shortDescription, category, slug } = post.fields;
+  const { title, poster, shortDescription, slug, categories } = post.fields;
 
   return (
-    <div className="p-2 my-2 bg-slate-100">
-      <h2 className="font-bold mb-2 text-2xl">{title}</h2>
-      <h5>{formatDate(post.sys.createdAt)}</h5>
-      <div className="flex w-1/2">
+    <div className="flex p-2 my-2 bg-slate-100">
+      <div className="flex w-1/3">
         <Image
           src={`https:${poster?.fields.file.url || ''}`}
           alt={poster?.fields.title}
@@ -28,23 +27,20 @@ const PostTile = ({ post }: PostTilePropsType) => {
           width={poster?.fields.file.details.image?.width}
         />
       </div>
-      <div className="flex">{shortDescription}</div>
-      <div className="flex my-2">
-        {category.map((category) => (
-          <div
-            className="flex rounded-full bg-orange-200 w-24 h-6 justify-center mx-1"
-            key={category}
-          >
-            {category}
-          </div>
-        ))}
-      </div>
-      <div className="flex justify-end">
-        <Link href={`/posts/${slug}`}>
-          <a className="flex rounded-lg w-36 h-10 bg-green-200 relative justify-center items-center">
-            Read more
-          </a>
-        </Link>
+      <div className="flex flex-col w-2/3 ml-2">
+        <h5 className="flex text-sm">{formatDate(post.sys.createdAt)}</h5>
+        <h2 className="flex font-bold text-2xl">{title}</h2>
+        <div className="flex mt-2 mb-4">
+          <CategoriesBadge categories={categories} />
+        </div>
+        <div className="flex mb-auto">{shortDescription}</div>
+        <div className="flex justify-end mt-4">
+          <Link href={`/posts/${slug}`}>
+            <a className="flex rounded-lg w-36 h-10 bg-emerald-300 justify-center items-center">
+              Read more
+            </a>
+          </Link>
+        </div>
       </div>
     </div>
   );

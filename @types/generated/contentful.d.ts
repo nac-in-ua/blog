@@ -3,6 +3,30 @@
 import { Asset, Entry } from "contentful";
 import { Document } from "@contentful/rich-text-types";
 
+export interface ICategoryFields {
+  /** name */
+  name?: string | undefined;
+}
+
+/** Category name for content */
+
+export interface ICategory extends Entry<ICategoryFields> {
+  sys: {
+    id: string;
+    type: string;
+    createdAt: string;
+    updatedAt: string;
+    locale: string;
+    contentType: {
+      sys: {
+        id: "category";
+        linkType: "ContentType";
+        type: "Link";
+      };
+    };
+  };
+}
+
 export interface IPostFields {
   /** Title */
   title?: string | undefined;
@@ -19,8 +43,8 @@ export interface IPostFields {
   /** Short description */
   shortDescription: string;
 
-  /** Category */
-  category: ("category 1" | "category 2" | "category 3" | "category 4")[];
+  /** Categories */
+  categories: ICategory[];
 }
 
 /** Post data */
@@ -42,7 +66,7 @@ export interface IPost extends Entry<IPostFields> {
   };
 }
 
-export type CONTENT_TYPE = "post";
+export type CONTENT_TYPE = "category" | "post";
 
 export type LOCALE_CODE = "en-US";
 
