@@ -8,7 +8,6 @@ type PostTilePropsType = {
 };
 
 const formatDate = (date: string) => {
-  // return DateTime.fromISO(date).setZone("America/La_Paz").toFormat('dd LLL yyyy HH:mm');
   return DateTime.fromISO(date, { zone: 'Europe/Kiev' }).toFormat(
     'dd LLL yyyy HH:mm'
   );
