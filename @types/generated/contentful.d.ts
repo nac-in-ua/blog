@@ -46,8 +46,8 @@ export interface IPostFields {
   /** Categories */
   categories: ICategory[];
 
-  /** tags */
-  tags?: string[] | undefined;
+  /** keyword */
+  keywords?: string[] | undefined;
 }
 
 /** Post data */

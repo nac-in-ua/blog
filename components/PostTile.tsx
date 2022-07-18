@@ -3,13 +3,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { formatDate } from '../utils/format';
 import CategoriesBadge from './CategoriesBadge';
+import Keywords from './KeywordsBadge';
 
 type PostTilePropsType = {
   post: IPost;
 };
 
 const PostTile = ({ post }: PostTilePropsType) => {
-  const { title, poster, shortDescription, slug, categories } = post.fields;
+  const { title, poster, shortDescription, slug, categories, keywords } =
+    post.fields;
 
   return (
     <div className="flex p-2 my-2 bg-white border border-1 shadow-sm">
@@ -26,12 +28,15 @@ const PostTile = ({ post }: PostTilePropsType) => {
         />
       </div>
       <div className="flex flex-col w-2/3 ml-2">
-        <h5 className="flex text-sm text-gray-600">
-          {formatDate(post.sys.createdAt)}
-        </h5>
-        <h2 className="flex font-bold text-2xl text-gray-700">{title}</h2>
-        <div className="flex mb-2">
+        <div className="flex justify-between">
+          <h5 className="flex text-sm text-gray-600">
+            {formatDate(post.sys.createdAt)}
+          </h5>
           <CategoriesBadge categories={categories} />
+        </div>
+        <h2 className="flex font-bold text-2xl text-gray-700">{title}</h2>
+        <div className="flex flex-col mb-2">
+          <Keywords keywords={keywords} />
         </div>
         <div className="flex mb-auto text-gray-700">{shortDescription}</div>
         <div className="flex justify-end mt-4">
@@ -44,6 +49,6 @@ const PostTile = ({ post }: PostTilePropsType) => {
       </div>
     </div>
   );
-};
+};;;
 
 export default PostTile;

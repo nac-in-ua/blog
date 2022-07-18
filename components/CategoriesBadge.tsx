@@ -10,12 +10,12 @@ const CategoriesBadge = ({ categories }: PropsType) => {
     console.log(event.currentTarget.dataset.value);
   };
   return (
-    <ul className="flex divide-x divide-solid">
+    <ul className="flex">
       {categories.map((category) => (
         <li
           onClick={handleClick}
           data-value={category.fields.name}
-          className="flex first:pl-0 px-1 text-sm text-gray-500 cursor-pointer before:content-['#'] hover:underline"
+          className="flex rounded-md mx-1 px-2 first:ml-0 bg-gray-200 text-sm text-gray-700 cursor-pointer"
           key={category.fields.name}
         >
           {category.fields.name}

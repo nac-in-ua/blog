@@ -66,8 +66,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  console.log('params: ', params);
-
   const { items } = await client.getEntries<IPostFields>({
     content_type: 'post',
     'fields.slug': params!.post_slug,
