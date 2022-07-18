@@ -9,7 +9,7 @@ const CategoriesBadge = ({ categories }: PropsType) => {
     <>
       {categories.map((category) => (
         <div
-          className="flex rounded-full bg-purple-200 justify-center mx-1 text-sm px-2"
+          className="flex mr-2 text-sm text-gray-500 cursor-pointer"
           key={category.fields.name}
         >
           {category.fields.name}
