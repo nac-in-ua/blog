@@ -47,7 +47,7 @@ const Home: NextPage<HomePropsType> = ({ posts, categories }) => {
         </ul>
       </nav>
       <main className="flex justify-center">
-        <div className="flex w-3/4 flex-col">
+        <div className="flex sm:w-full sm:mx-4 lg:w-3/4 flex-col">
           {sortedPosts(posts).map((post) => (
             <PostTile key={post.sys.id} post={post} />
           ))}
