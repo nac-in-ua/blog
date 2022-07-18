@@ -1,17 +1,11 @@
 import { IPost } from '../@types/generated/contentful';
 import Image from 'next/image';
 import Link from 'next/link';
-import { DateTime } from 'luxon';
+import { formatDate } from '../utils/format';
 import CategoriesBadge from './CategoriesBadge';
 
 type PostTilePropsType = {
   post: IPost;
-};
-
-const formatDate = (date: string) => {
-  return DateTime.fromISO(date, { zone: 'Europe/Kiev' }).toFormat(
-    'dd LLL yyyy HH:mm'
-  );
 };
 
 const PostTile = ({ post }: PostTilePropsType) => {
