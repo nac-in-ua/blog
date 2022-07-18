@@ -15,7 +15,7 @@ const CategoriesBadge = ({ categories }: PropsType) => {
         <li
           onClick={handleClick}
           data-value={category.fields.name}
-          className="flex first:pl-0 px-1 text-sm text-gray-500 cursor-pointer before:content-['#']"
+          className="flex first:pl-0 px-1 text-sm text-gray-500 cursor-pointer before:content-['#'] hover:underline"
           key={category.fields.name}
         >
           {category.fields.name}
