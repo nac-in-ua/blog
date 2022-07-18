@@ -27,7 +27,8 @@ const PostTile = ({ post }: PostTilePropsType) => {
           width={poster?.fields.file.details.image?.width}
           placeholder="blur"
           blurDataURL={`https:${poster?.fields.file.url || ''}`}
-          objectFit="contain"
+          objectFit="cover"
+          objectPosition="center"
         />
       </div>
       <div className="flex flex-col w-2/3 ml-2">
