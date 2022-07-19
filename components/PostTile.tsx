@@ -28,7 +28,7 @@ const PostTile = ({ post }: PostTilePropsType) => {
           objectPosition="center"
         />
       </div>
-      <div className="flex flex-col mt-2">
+      <div className="mt-2">
         <div className="flex my-1">
           <h5 className="flex text-sm text-gray-600">
             {formatDate(post.sys.createdAt)}
@@ -37,12 +37,14 @@ const PostTile = ({ post }: PostTilePropsType) => {
             <CategoriesBadge categories={categories} />
           </div>
         </div>
-        <Link href={`/posts/${slug}`}>
-          <h2 className="flex font-bold text-2xl text-gray-700 my-1 cursor-pointer hover:text-gray-500">
-            {title}
-          </h2>
-        </Link>
-        <div className="flex flex-col my-1">
+        <div className="flex">
+          <Link href={`/posts/${slug}`}>
+            <h2 className="font-bold text-2xl text-gray-700 my-1 cursor-pointer hover:text-gray-500">
+              {title}
+            </h2>
+          </Link>
+        </div>
+        <div className="flex my-1">
           <Keywords keywords={keywords} />
         </div>
         <div className="flex text-gray-700 my-1">{shortDescription}</div>
