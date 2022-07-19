@@ -8,7 +8,8 @@ import {
 } from '../@types/generated/contentful';
 import client from '../contentful/contenful';
 import PostTile from '../components/PostTile';
-import { useState } from 'react';
+import { UserIcon } from '@heroicons/react/outline';
+import Link from 'next/link';
 
 type HomePropsType = {
   posts: IPost[];
@@ -34,18 +35,32 @@ const Home: NextPage<HomePropsType> = ({ posts, categories }) => {
       <div className="flex justify-center bg-slate-300 text-xl uppercase py-1 font-heading">
         nac development
       </div>
-      <nav className="flex py-4 mb-6 bg-white justify-center items-center sticky top-0 border-b z-10">
-        <ul className="flex">
-          {categories.map((category) => (
-            <li
-              className="flex mx-2 cursor-pointer text-gray-700"
-              key={category.fields.name}
-            >
-              {category.fields.name}
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="sticky top-0 bg-white z-10 shadow border-b mb-6">
+        <div className="m-auto max-w-2xl py-2">
+          <div className="flex h-10 items-center">
+            <div className="flex-1 self-stretch">
+              <div className="flex h-full items-center">
+                <nav className="flex flex-1">
+                  {categories.map((category) => (
+                    <Link
+                      key={category.fields.name}
+                      href={`/categories/${category.fields.name?.toLowerCase()}`}
+                    >
+                      <a className="flex mx-2 cursor-pointer text-gray-700 hover:text-gray-500">
+                        {category.fields.name}
+                      </a>
+                    </Link>
+                  ))}
+                </nav>
+              </div>
+            </div>
+            <div className="flex text-red-500">
+              login
+              <UserIcon className="h-5 w-5" />
+            </div>
+          </div>
+        </div>
+      </div>
       <main className="flex justify-center">
         <div className="flex max-w-2xl flex-col">
           {sortedPosts(posts).map((post) => (
