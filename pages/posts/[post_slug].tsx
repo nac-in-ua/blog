@@ -1,7 +1,11 @@
 import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
-import { IPost, IPostFields } from '../../@types/generated/contentful';
+import {
+  IPost,
+  IPostFields,
+  ICategoryFields,
+} from '../../@types/generated/contentful';
 import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { GetStaticPaths } from 'next';
@@ -71,9 +75,14 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     'fields.slug': params!.post_slug,
   });
 
+  const categoryEntries = await client.getEntries<ICategoryFields>({
+    content_type: 'category',
+  });
+
   return {
     props: {
       post: items[0],
+      categories: categoryEntries.items,
     },
     revalidate: 1,
   };

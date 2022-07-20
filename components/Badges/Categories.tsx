@@ -1,4 +1,4 @@
-import { ICategory } from '../@types/generated/contentful';
+import { ICategory } from '../../@types/generated/contentful';
 import { MouseEvent } from 'react';
 import Link from 'next/link';
 
@@ -6,7 +6,7 @@ type PropsType = {
   categories: ICategory[];
 };
 
-const CategoriesBadge = ({ categories }: PropsType) => {
+const Categories = ({ categories }: PropsType) => {
   const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
     console.log(event.currentTarget.dataset.value);
   };
@@ -27,4 +27,4 @@ const CategoriesBadge = ({ categories }: PropsType) => {
   );
 };
 
-export default CategoriesBadge;
+export default Categories;

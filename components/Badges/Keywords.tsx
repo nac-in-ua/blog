@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { IPostFields } from '../@types/generated/contentful';
+import { IPostFields } from '../../@types/generated/contentful';
 
 type PropsType = {
   keywords: IPostFields['keywords'];

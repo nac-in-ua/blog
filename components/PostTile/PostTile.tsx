@@ -1,6 +1,5 @@
 import { IPost } from '../../@types/generated/contentful';
-import CategoriesBadge from '../CategoriesBadge';
-import Keywords from '../KeywordsBadge';
+import { Categories, Keywords } from '../Badges';
 import Heading from './Heading';
 import ReadMoreButton from './ReadMoreButton';
 import Activity from './Activity';
@@ -24,7 +23,7 @@ const PostTile = ({ post }: PostTilePropsType) => {
         <div className="flex my-1">
           <CreatedDate date={post.sys.createdAt} />
           <div className="flex ml-4">
-            <CategoriesBadge categories={categories} />
+            <Categories categories={categories} />
           </div>
         </div>
         <div className="flex">
