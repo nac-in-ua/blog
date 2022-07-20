@@ -31,7 +31,7 @@ const Post = ({ post }: PostPropTypes) => {
   return (
     <>
       <Head>
-        <title>{post.fields.title}</title>
+        <title>nac blog: {post.fields.title}</title>
       </Head>
       <div>
         <h1>{post.fields.title}</h1>
