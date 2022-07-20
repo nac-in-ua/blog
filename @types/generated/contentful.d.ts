@@ -29,13 +29,13 @@ export interface ICategory extends Entry<ICategoryFields> {
 
 export interface IPostFields {
   /** Title */
-  title?: string | undefined;
+  title: string;
 
   /** Body */
   body: Document;
 
   /** poster */
-  poster?: Asset | undefined;
+  poster: Asset;
 
   /** slug */
   slug: string;
@@ -47,7 +47,7 @@ export interface IPostFields {
   categories: ICategory[];
 
   /** keyword */
-  keywords?: string[] | undefined;
+  keywords: string[];
 }
 
 /** Post data */
