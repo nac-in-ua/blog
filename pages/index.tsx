@@ -10,18 +10,11 @@ import client from '../contentful/contenful';
 import PostTile from '../components/PostTile';
 import { UserIcon } from '@heroicons/react/outline';
 import Link from 'next/link';
+import { sortedPosts } from '../utils/posts';
 
 type HomePropsType = {
   posts: IPost[];
   categories: ICategory[];
-};
-
-const sortedPosts = (posts: IPost[]) => {
-  return posts.sort((a, b) => {
-    return (
-      new Date(b.sys.createdAt).getTime() - new Date(a.sys.createdAt).getTime()
-    );
-  });
 };
 
 const Home: NextPage<HomePropsType> = ({ posts, categories }) => {

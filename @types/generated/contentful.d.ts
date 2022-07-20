@@ -5,7 +5,7 @@ import { Document } from "@contentful/rich-text-types";
 
 export interface ICategoryFields {
   /** name */
-  name?: string | undefined;
+  name: string;
 }
 
 /** Category name for content */
