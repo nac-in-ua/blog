@@ -9,7 +9,7 @@ type PropsType = {
 
 const Navbar = ({ categories, category = '' }: PropsType) => {
   return (
-    <div className="sticky top-0 bg-white z-10 shadow border-b mb-6">
+    <div className="sticky top-0 bg-white z-10 border-b mb-6">
       <div className="m-auto max-w-2xl py-2 flex h-12">
         <nav className="flex flex-1 self-stretch items-center">
           {categories.map((cat) => (

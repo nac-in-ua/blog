@@ -32,10 +32,12 @@ const renderOption = {
 };
 
 const Post = ({ post }: PostPropTypes) => {
+  console.log(post.fields.title);
+
   return (
     <>
       <Head>
-        <title>nac blog: {post.fields.title}</title>
+        <title>{`nac blog: ${post.fields.title}`}</title>
       </Head>
       <div>
         <h1>{post.fields.title}</h1>
