@@ -7,7 +7,7 @@ type PropsType = {
 
 const Heading = ({ title, slug }: PropsType) => {
   return (
-    <Link href={`/posts/${slug}`}>
+    <Link href={`/post/${slug}`}>
       <h2 className="font-bold text-2xl text-gray-700 my-1 cursor-pointer hover:text-gray-500">
         {title}
       </h2>

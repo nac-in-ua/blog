@@ -6,7 +6,7 @@ type PropsType = {
 
 const ReadMoreButton = ({ slug }: PropsType) => {
   return (
-    <Link href={`/posts/${slug}`}>
+    <Link href={`/post/${slug}`}>
       <a className="flex w-36 h-10 border hover:bg-gray-50 justify-center items-center">
         Read more
       </a>
