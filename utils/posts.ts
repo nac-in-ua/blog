@@ -1,10 +1,9 @@
 import { IPost } from '../@types/generated/contentful';
+import { PostData } from '../@types/posts';
 
-const sortedPosts = (posts: IPost[]) => {
+const sortedPosts = (posts: PostData[]) => {
   return posts.sort((a, b) => {
-    return (
-      new Date(b.sys.createdAt).getTime() - new Date(a.sys.createdAt).getTime()
-    );
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
   });
 };
 

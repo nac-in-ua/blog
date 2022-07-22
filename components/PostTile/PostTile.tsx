@@ -1,18 +1,17 @@
-import { IPost } from '../../@types/generated/contentful';
 import { Categories, Keywords } from '../Badges';
 import Heading from './Heading';
 import ReadMoreButton from './ReadMoreButton';
 import Activity from './Activity';
 import CreatedDate from './CreatedDate';
 import Poster from './Poster';
+import { PostData } from '../../@types/posts';
 
 type PostTilePropsType = {
-  post: IPost;
+  post: PostData;
 };
 
 const PostTile = ({ post }: PostTilePropsType) => {
-  const { title, poster, shortDescription, slug, categories, keywords } =
-    post.fields;
+  const { title, poster, shortDescription, slug, categories, keywords } = post;
 
   return (
     <div className="flex p-2 my-2 bg-white border border-1 shadow-sm flex-col">
@@ -21,7 +20,7 @@ const PostTile = ({ post }: PostTilePropsType) => {
       </div>
       <div className="mt-2">
         <div className="flex my-1">
-          <CreatedDate date={post.sys.createdAt} />
+          <CreatedDate date={post.createdAt} />
           <div className="flex ml-4">
             <Categories categories={categories} />
           </div>

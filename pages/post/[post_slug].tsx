@@ -1,18 +1,14 @@
 import type { GetStaticProps } from 'next';
+import type { PostData } from '../../@types/posts';
 import Head from 'next/head';
 import Image from 'next/image';
-import {
-  IPost,
-  IPostFields,
-  ICategoryFields,
-} from '../../@types/generated/contentful';
 import { BLOCKS, Block, Inline } from '@contentful/rich-text-types';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { GetStaticPaths } from 'next';
-import client from '../../contentful/contenful';
+import { getData } from '../../contentful';
 
 type PostPropTypes = {
-  post: IPost;
+  post: PostData;
 };
 
 const renderOption = {
@@ -32,18 +28,14 @@ const renderOption = {
 };
 
 const Post = ({ post }: PostPropTypes) => {
-  console.log(post.fields.title);
-
   return (
     <>
       <Head>
-        <title>{`nac blog: ${post.fields.title}`}</title>
+        <title>{`nac blog: ${post.title}`}</title>
       </Head>
       <div>
-        <h1>{post.fields.title}</h1>
-        <span>
-          {documentToReactComponents(post.fields.body!, renderOption)}
-        </span>
+        <h1>{post.title}</h1>
+        <span>{documentToReactComponents(post.body!, renderOption)}</span>
       </div>
     </>
   );
@@ -52,39 +44,27 @@ const Post = ({ post }: PostPropTypes) => {
 export default Post;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { items } = await client.getEntries<IPostFields>({
-    content_type: 'post',
-    select: 'fields.slug',
-  });
-
-  const paths = items.map((item) => {
-    return {
-      params: {
-        post_slug: item.fields.slug,
-      },
-    };
-  });
+  const { posts } = await getData();
 
   return {
-    paths,
+    paths: posts.map((post) => ({
+      params: {
+        post_slug: post.slug,
+      },
+    })),
     fallback: false,
   };
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { items } = await client.getEntries<IPostFields>({
-    content_type: 'post',
-    'fields.slug': params!.post_slug,
-  });
-
-  const categoryEntries = await client.getEntries<ICategoryFields>({
-    content_type: 'category',
-  });
+  const { posts, categories } = await getData();
 
   return {
     props: {
-      post: items[0],
-      categories: categoryEntries.items,
+      post: posts.filter(
+        (post: PostData) => post.slug === params!.post_slug
+      )[0],
+      categories,
     },
     revalidate: 1,
   };

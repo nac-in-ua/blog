@@ -1,13 +1,13 @@
 import type { GetStaticProps, NextPage } from 'next';
+import type { categoryData } from '../@types/posts';
 import Head from 'next/head';
-import client from '../contentful/contenful';
-import { ICategory, ICategoryFields } from '../@types/generated/contentful';
+import { getData } from '../contentful';
 
 type PropsType = {
-  categories: ICategory[];
+  categories: categoryData[];
 };
 
-const FourOhFour: NextPage<PropsType> = ({ categories }) => {
+const FourOhFour: NextPage<PropsType> = () => {
   return (
     <>
       <Head>
@@ -24,13 +24,11 @@ const FourOhFour: NextPage<PropsType> = ({ categories }) => {
 export default FourOhFour;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const categoryEntries = await client.getEntries<ICategoryFields>({
-    content_type: 'category',
-  });
+  const { categories } = await getData();
 
   return {
     props: {
-      categories: categoryEntries.items,
+      categories,
     },
     revalidate: 1,
   };

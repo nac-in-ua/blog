@@ -1,21 +1,14 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import {
-  IPost,
-  IPostFields,
-  ICategory,
-  ICategoryFields,
-} from '../@types/generated/contentful';
-import client from '../contentful/contenful';
-import PostTile from '../components/PostTile';
-import { sortedPosts } from '../utils/posts';
+import { PostData } from '../@types/posts';
+import { getData } from '../contentful';
+import PostsList from '../components/PostsList';
 
 type HomePropsType = {
-  posts: IPost[];
-  categories: ICategory[];
+  posts: PostData[];
 };
 
-const Home: NextPage<HomePropsType> = ({ posts, categories }) => {
+const Home: NextPage<HomePropsType> = ({ posts }) => {
   return (
     <>
       <Head>
@@ -24,9 +17,7 @@ const Home: NextPage<HomePropsType> = ({ posts, categories }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col">
-        {sortedPosts(posts).map((post) => (
-          <PostTile key={post.sys.id} post={post} />
-        ))}
+        <PostsList posts={posts} />
       </div>
     </>
   );
@@ -35,18 +26,12 @@ const Home: NextPage<HomePropsType> = ({ posts, categories }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const postEntries = await client.getEntries<IPostFields>({
-    content_type: 'post',
-  });
-
-  const categoryEntries = await client.getEntries<ICategoryFields>({
-    content_type: 'category',
-  });
+  const { posts, categories } = await getData();
 
   return {
     props: {
-      posts: postEntries.items,
-      categories: categoryEntries.items,
+      posts,
+      categories,
     },
     revalidate: 1,
   };
