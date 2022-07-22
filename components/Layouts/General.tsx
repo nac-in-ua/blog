@@ -1,6 +1,6 @@
-import type { categoryData } from '../@types/posts';
-import Navbar from './Navbar';
-import Footer from './Footer';
+import type { categoryData } from '../../@types/posts';
+import Navbar from '../Navbar';
+import Footer from '../Footer';
 import Link from 'next/link';
 
 type PropsType = {
@@ -9,7 +9,11 @@ type PropsType = {
   category: categoryData;
 };
 
-export default function Layout({ children, categories, category }: PropsType) {
+export default function GeneralLayout({
+  children,
+  categories,
+  category,
+}: PropsType) {
   return (
     <div className="flex flex-col min-h-screen">
       <div className="flex justify-center bg-slate-300 text-xl uppercase py-1 font-heading">
