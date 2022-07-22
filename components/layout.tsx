@@ -1,12 +1,12 @@
+import type { categoryData } from '../@types/posts';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Link from 'next/link';
-import { ICategory } from '../@types/generated/contentful';
 
 type PropsType = {
   children: React.ReactNode;
-  categories: string[];
-  category: string;
+  categories: categoryData[];
+  category: categoryData;
 };
 
 export default function Layout({ children, categories, category }: PropsType) {

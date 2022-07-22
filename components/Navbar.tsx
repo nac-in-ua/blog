@@ -1,10 +1,10 @@
-import { ICategory } from '../@types/generated/contentful';
+import type { categoryData } from '../@types/posts';
 import Link from 'next/link';
 import { UserIcon } from '@heroicons/react/outline';
 
 type PropsType = {
-  categories: string[];
-  category?: string;
+  categories: categoryData[];
+  category: categoryData;
 };
 
 const Navbar = ({ categories, category }: PropsType) => {
