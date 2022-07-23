@@ -58,13 +58,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const { posts, categories } = await getData();
+  const post = posts.filter(
+    (post: PostData) => post.slug === params!.post_slug
+  )[0];
+  const category = post.categories[0].fields.name;
 
   return {
     props: {
-      post: posts.filter(
-        (post: PostData) => post.slug === params!.post_slug
-      )[0],
+      post,
       categories,
+      category,
     },
     revalidate: 1,
   };

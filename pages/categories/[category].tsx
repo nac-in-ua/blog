@@ -5,6 +5,7 @@ import { GetStaticPaths } from 'next';
 import { getData } from '../../contentful';
 import { sortedPosts } from '../../utils/posts';
 import PostTile from '../../components/PostTile';
+import { EVERYTHING } from '../../utils/categories';
 
 type PostPropTypes = {
   posts: PostData[];
@@ -12,11 +13,14 @@ type PostPropTypes = {
 };
 
 const Category: NextPage<PostPropTypes> = ({ category, posts }) => {
-  const relevantPosts = posts.filter((post) =>
-    post.categories.some(
+  const relevantPosts = posts.filter((post) => {
+    if (category.toLowerCase() === EVERYTHING) {
+      return posts;
+    }
+    return post.categories.some(
       (cat) => cat.fields.name.toLowerCase() === category.toLowerCase()
-    )
-  );
+    );
+  });
 
   return (
     <>

@@ -34,9 +34,12 @@ const getData = async (): Promise<DataType> => {
     content_type: 'category',
   });
 
+  const posts = postEntries.items.map(getPostData);
+  const categories = categoryEntries.items.map(getCategoryData);
+
   return {
-    posts: postEntries.items.map(getPostData),
-    categories: categoryEntries.items.map(getCategoryData),
+    posts,
+    categories,
   };
 };
 

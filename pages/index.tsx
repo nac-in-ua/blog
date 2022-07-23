@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { PostData } from '../@types/posts';
 import { getData } from '../contentful';
 import PostsList from '../components/PostsList';
+import { EVERYTHING } from '../utils/categories';
 
 type HomePropsType = {
   posts: PostData[];
@@ -32,6 +33,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       posts,
       categories,
+      category: EVERYTHING,
     },
     revalidate: 1,
   };
