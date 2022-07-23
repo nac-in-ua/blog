@@ -33,7 +33,7 @@ const Post = ({ post }: PostPropTypes) => {
       <Head>
         <title>{`nac blog: ${post.title}`}</title>
       </Head>
-      <div>
+      <div className="flex p-2 my-2 bg-white border border-1 shadow-sm flex-col w-full break-all">
         <h1>{post.title}</h1>
         <span>{documentToReactComponents(post.body!, renderOption)}</span>
       </div>
