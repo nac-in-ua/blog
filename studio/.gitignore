@@ -3,12 +3,6 @@
 # dependencies
 /node_modules
 
-# testing
-/coverage
-
-# next.js
-/.next/
-
 # production
 /build
 
@@ -25,3 +19,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# typescript
+*.tsbuildinfo
