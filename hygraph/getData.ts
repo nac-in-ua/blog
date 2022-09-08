@@ -72,24 +72,6 @@ const getCategories = async () => {
   return data.categories;
 };
 
-export const getPage = async (slug: string) => {
-  const query = gql`
-    query Page($slug: String!) {
-      page(where: { slug: $slug }) {
-        id
-        title
-        categories {
-          id
-          name
-          slug
-        }
-      }
-    }
-  `;
-  const data = await hygraph.request(query, { slug });
-  return await data.page;
-};
-
 export const getNavbar = async (name: string) => {
   const query = gql`
     query Navbar($name: String!) {

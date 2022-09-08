@@ -7,7 +7,7 @@ type PostsItem = {
   title: string;
 };
 
-type CategoriesItem = {
+export type CategoriesItem = {
   id: string;
   slug: string;
   name: string;

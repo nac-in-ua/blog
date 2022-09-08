@@ -5,6 +5,7 @@ import { getPanelData } from '../hygraph/Panel';
 import { IPostData } from '../@types/posts';
 import PostsList from '../components/PostsList';
 import { EVERYTHING } from '../utils/categories';
+import { getPageData } from '../hygraph/Page';
 
 type HomePropsType = {
   posts: IPostData[];
@@ -29,14 +30,14 @@ export default Home;
 export const getStaticProps: GetStaticProps = async () => {
   const { posts } = await getData();
   const { categories } = await getNavbar('Main');
-  const panel = await getPanelData('cl6evvojwrmhh0cum5onfq94d');
+  const page = await getPageData('index');
 
   return {
     props: {
       posts,
       categories,
       category: EVERYTHING,
-      panel,
+      panel: page.panel,
     },
     revalidate: 1,
   };
