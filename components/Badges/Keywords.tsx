@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react';
-import { KeywordData } from '../../@types/posts';
+import { KeywordData } from '../../hygraph/Post';
 
 type PropsType = {
   keywords: KeywordData[];
@@ -18,7 +18,7 @@ const Keywords = ({ keywords }: PropsType) => {
         <li
           onClick={handleClick}
           data-keyword={name}
-          className="flex first:pl-0 px-1 text-sm text-gray-500 cursor-pointer before:content-['#'] hover:underline"
+          className="flex cursor-pointer px-1 text-sm text-gray-500 before:content-['#'] first:pl-0 hover:underline"
           key={id}
         >
           {name}

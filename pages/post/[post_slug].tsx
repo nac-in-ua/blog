@@ -1,19 +1,21 @@
 import type { GetStaticProps } from 'next';
-import type { IPostData, ICategoryData } from '../../@types/posts';
 import Head from 'next/head';
 import Image from 'next/image';
 import { GetStaticPaths } from 'next';
-import { getData, getNavbar, getEmbed } from '../../hygraph/getData';
+import { getEmbed } from '../../hygraph/getData';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import CoverImage from '../../components/PostTile/CoverImage';
 import Link from 'next/link';
 import CodeBlock from '../../components/CodeBlock';
 import { EmbedReferences } from '@graphcms/rich-text-types';
+import { getPageData } from '../../hygraph/Page';
+import { getPostsData, Post } from '../../hygraph/Post';
+import { CategoriesItem } from '../../hygraph/Panel';
 
 type PostPropTypes = {
-  post: IPostData;
-  posts: IPostData[];
-  categories: ICategoryData[];
+  post: Post;
+  posts: Post[];
+  categories: CategoriesItem[];
   embedReferences: EmbedReferences;
 };
 
@@ -204,10 +206,10 @@ const Post = ({ post, categories, posts, embedReferences }: PostPropTypes) => {
 export default Post;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const { posts } = await getData();
+  const posts = await getPostsData();
 
   return {
-    paths: posts.map((post: IPostData) => ({
+    paths: posts.map((post: Post) => ({
       params: {
         post_slug: post.slug,
       },
@@ -217,24 +219,21 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const { posts } = await getData();
-  const { categories } = await getNavbar('Main');
+  const posts = await getPostsData();
+  const { panel, header } = await getPageData('post');
 
-  const post = posts.filter(
-    (post: IPostData) => post.slug === params!.post_slug
-  )[0];
+  const post = posts.filter((post: Post) => post.slug === params!.post_slug)[0];
 
   const embedReferences = await getEmbed(post.id);
-
-  const category = post.category;
 
   return {
     props: {
       post,
-      categories,
-      category,
+      categories: header.navbar.categories,
+      category: post.category,
       posts,
       embedReferences: embedReferences.content.references,
+      panel,
     },
     revalidate: 1,
   };

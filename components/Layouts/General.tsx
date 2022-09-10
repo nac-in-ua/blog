@@ -1,14 +1,13 @@
-import type { ICategoryData } from '../../@types/posts';
 import Navbar from '../Navbar';
 import Footer from '../Footer';
 import Link from 'next/link';
 import MainPanel from '../Panels/MainPanel';
-import { Panel } from '../../hygraph/Panel';
+import { CategoriesItem, Panel } from '../../hygraph/Panel';
 
 type PropsType = {
   children: React.ReactNode;
-  categories: ICategoryData[];
-  category: ICategoryData;
+  categories: CategoriesItem[];
+  category: CategoriesItem;
   panel: Panel;
 };
 

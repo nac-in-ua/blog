@@ -1,14 +1,12 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
-import { getData, getNavbar } from '../hygraph/getData';
-import { getPanelData } from '../hygraph/Panel';
-import { IPostData } from '../@types/posts';
 import PostsList from '../components/PostsList';
 import { EVERYTHING } from '../utils/categories';
 import { getPageData } from '../hygraph/Page';
+import { getPostsCoverData, PostCover } from '../hygraph/Post';
 
 type HomePropsType = {
-  posts: IPostData[];
+  posts: PostCover[];
 };
 
 const Home: NextPage<HomePropsType> = ({ posts }) => {
@@ -28,16 +26,15 @@ const Home: NextPage<HomePropsType> = ({ posts }) => {
 export default Home;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { posts } = await getData();
-  const { categories } = await getNavbar('Main');
-  const page = await getPageData('index');
+  const { panel, header } = await getPageData('index');
+  const posts = await getPostsCoverData();
 
   return {
     props: {
       posts,
-      categories,
+      categories: header.navbar.categories,
       category: EVERYTHING,
-      panel: page.panel,
+      panel: panel,
     },
     revalidate: 1,
   };

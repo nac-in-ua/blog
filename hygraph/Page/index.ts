@@ -1,5 +1,5 @@
-import { gql } from 'graphql-request';
-import { hygraph } from '../getData';
+import { client } from '../../utils/client';
+import { gql } from '@apollo/client';
 import { CategoriesItem, Panel } from '../Panel';
 
 export type Header = {
@@ -18,51 +18,53 @@ export type Page = {
 };
 
 export const getPageData = async (slug: string): Promise<Page> => {
-  const query = gql`
-    query Page($slug: String!) {
-      page(where: { slug: $slug }) {
-        id
-        title
-        slug
-        header {
+  const { data } = await client.query({
+    query: gql`
+      query Page($slug: String!) {
+        page(where: { slug: $slug }) {
           id
-          navbar {
-            categories {
-              id
-              name
-              slug
+          title
+          slug
+          header {
+            id
+            navbar {
+              categories {
+                id
+                name
+                slug
+              }
             }
           }
-        }
-        panel {
-          widgets {
-            id
-            name
-            type
-            widgetContent {
-              ... on CategoriesWidget {
-                id
-                categories {
+          panel {
+            widgets {
+              id
+              name
+              type
+              widgetContent {
+                ... on CategoriesWidget {
                   id
-                  name
-                  slug
+                  categories {
+                    id
+                    name
+                    slug
+                  }
                 }
-              }
-              ... on PostsWidget {
-                id
-                posts {
+                ... on PostsWidget {
                   id
-                  title
-                  slug
+                  posts {
+                    id
+                    title
+                    slug
+                  }
                 }
               }
             }
           }
         }
       }
-    }
-  `;
-  const data = await hygraph.request(query, { slug });
+    `,
+    variables: { slug },
+  });
 
   return data.page;
 };

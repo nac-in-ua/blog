@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import { ICoverImage } from '../../@types/posts';
+import { CoverImage } from '../../hygraph/Post';
 
 type PropsType = {
-  data: ICoverImage;
+  data: CoverImage;
 };
 
 const Poster = ({ data }: PropsType) => {

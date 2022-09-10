@@ -1,12 +1,12 @@
-import type { ICategoryData } from '../@types/posts';
 import Link from 'next/link';
 import { UserIcon } from '@heroicons/react/outline';
 import { EVERYTHING } from '../utils/categories';
 import React from 'react';
+import { CategoriesItem } from '../hygraph/Panel';
 
 type PropsType = {
-  categories: ICategoryData[];
-  category: ICategoryData;
+  categories: CategoriesItem[];
+  category: CategoriesItem;
 };
 
 const Navbar = ({ categories, category }: PropsType) => {

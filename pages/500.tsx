@@ -1,10 +1,10 @@
 import type { GetStaticProps, NextPage } from 'next';
-import type { ICategoryData } from '../@types/posts';
 import Head from 'next/head';
-import { getData } from '../hygraph/getData';
+import { getPageData } from '../hygraph/Page';
+import { CategoriesItem } from '../hygraph/Panel';
 
 type PropsType = {
-  categories: ICategoryData[];
+  categories: CategoriesItem[];
 };
 
 const FiveOhOh: NextPage<PropsType> = () => {
@@ -24,11 +24,12 @@ const FiveOhOh: NextPage<PropsType> = () => {
 export default FiveOhOh;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { categories } = await getData();
+  const { panel, header } = await getPageData('category');
 
   return {
     props: {
-      categories,
+      categories: header.navbar.categories,
+      panel: panel,
     },
     revalidate: 1,
   };

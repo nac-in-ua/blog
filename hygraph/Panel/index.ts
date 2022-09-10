@@ -1,5 +1,5 @@
-import { hygraph } from '../getData';
-import { gql } from 'graphql-request';
+import { client } from '../../utils/client';
+import { gql } from '@apollo/client';
 
 type PostsItem = {
   id: string;
@@ -44,38 +44,40 @@ export type Panel = {
 };
 
 export const getPanelData = async (id: string): Promise<Panel> => {
-  const query = gql`
-    query ($id: ID!) {
-      panel(where: { id: $id }) {
-        id
-        widgets {
+  const { data } = await client.query({
+    query: gql`
+      query ($id: ID!) {
+        panel(where: { id: $id }) {
           id
-          name
-          type
-          widgetContent {
-            ... on CategoriesWidget {
-              id
-              categories {
+          widgets {
+            id
+            name
+            type
+            widgetContent {
+              ... on CategoriesWidget {
                 id
-                name
-                slug
+                categories {
+                  id
+                  name
+                  slug
+                }
+              }
+              ... on PostsWidget {
+                id
+                posts {
+                  id
+                  title
+                  slug
+                }
               }
             }
-            ... on PostsWidget {
-              id
-              posts {
-                id
-                title
-                slug
-              }
-            }
+            type
           }
-          type
         }
       }
-    }
-  `;
-  const data = await hygraph.request(query, { id });
+    `,
+    variables: { id },
+  });
 
   return data.panel;
 };

@@ -1,9 +1,9 @@
-import { ICategoryData } from '../../@types/posts/index';
 import { MouseEvent } from 'react';
 import Link from 'next/link';
+import { CategoriesItem } from '../../hygraph/Panel';
 
 type PropsType = {
-  category: ICategoryData;
+  category: CategoriesItem;
 };
 
 const Category = ({ category }: PropsType) => {
@@ -17,7 +17,7 @@ const Category = ({ category }: PropsType) => {
         <a
           onClick={handleClick}
           data-category={slug}
-          className="flex rounded-md mx-1 px-2 first:ml-0 bg-gray-200 text-sm text-gray-700"
+          className="mx-1 flex rounded-md bg-gray-200 px-2 text-sm text-gray-700 first:ml-0"
         >
           {name}
         </a>

@@ -4,11 +4,11 @@ import ReadMoreButton from './ReadMoreButton';
 import Activity from './Activity';
 import CreatedDate from './CreatedDate';
 import CoverImage from './CoverImage';
-import { IPostData } from '../../@types/posts';
 import MenuButton from './MenuButton';
+import { PostCover } from '../../hygraph/Post';
 
 type PostCardPropsType = {
-  post: IPostData;
+  post: PostCover;
 };
 
 const PostCard = ({ post }: PostCardPropsType) => {
@@ -21,6 +21,9 @@ const PostCard = ({ post }: PostCardPropsType) => {
     publishedDateTime,
     coverImage,
     id,
+    likes,
+    views,
+    isSaved,
   } = post;
 
   return (
@@ -53,10 +56,10 @@ const PostCard = ({ post }: PostCardPropsType) => {
         <div className="text-thin my-1 flex flex-row text-sm text-gray-600">
           <Activity
             postId={id}
-            views={123456}
-            likes={123}
+            views={views}
+            likes={likes}
             comments={1234567}
-            isSaved={false}
+            isSaved={isSaved}
           />
         </div>
       </section>

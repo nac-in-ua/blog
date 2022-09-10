@@ -1,15 +1,14 @@
 import PostTile from '../components/PostTile';
-import { sortedPosts } from '../utils/posts';
-import { IPostData } from '../@types/posts';
+import { PostCover } from '../hygraph/Post';
 
 type PropsType = {
-  posts: IPostData[];
+  posts: PostCover[];
 };
 
 const PostsList = ({ posts }: PropsType) => {
   return (
     <>
-      {sortedPosts(posts).map((post) => (
+      {posts.map((post) => (
         <PostTile key={post.id} post={post} />
       ))}
     </>
