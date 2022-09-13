@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { PostsWidget } from '../../hygraph/Panel';
-import Activity from '../PostTile/Activity';
 
 type PropsType = {
   data: PostsWidget;
