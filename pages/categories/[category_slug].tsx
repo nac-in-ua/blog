@@ -2,7 +2,6 @@ import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import { GetStaticPaths } from 'next';
 import PostTile from '../../components/PostTile';
-import { EVERYTHING } from '../../utils/categories';
 import { getPageData } from '../../hygraph/Page';
 import { CategoriesItem } from '../../hygraph/Panel';
 import { getPostsCoverData, PostCover } from '../../hygraph/Post';
@@ -14,9 +13,6 @@ type PostPropTypes = {
 
 const Category: NextPage<PostPropTypes> = ({ category, posts }) => {
   const relevantPosts = posts.filter((post) => {
-    if (category.slug === EVERYTHING.slug) {
-      return posts;
-    }
     return post.category.slug === category.slug;
   });
 

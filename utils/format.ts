@@ -1,9 +1,14 @@
-import { DateTime } from 'luxon';
+import { format, differenceInDays, formatDistance } from 'date-fns';
+import { uk } from 'date-fns/locale';
 
 export const formatDate = (date: string) => {
-  return DateTime.fromISO(date, { zone: 'Europe/Kiev' }).toFormat(
-    'dd LLL yyyy HH:mm'
-  );
+  const today = new Date();
+  const target = new Date(date);
+  if (differenceInDays(today, target) < 7) {
+    return formatDistance(target, today, { locale: uk, addSuffix: true });
+  }
+
+  return format(target, 'dd MMMM yyyy HH:mm', { locale: uk });
 };
 
 export const getDividedCount = (count: number) => {

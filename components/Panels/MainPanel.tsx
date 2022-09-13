@@ -7,13 +7,13 @@ type PropsType = {
 
 const MainPanel = ({ widgets = [] }: PropsType) => {
   return (
-    <>
+    <div className="sticky top-14">
       {widgets.map((widget: PanelWidget) => (
         <section key={widget.id} className="flex border bg-white p-2">
           <WidgetFactory widget={widget} />
         </section>
       ))}
-    </>
+    </div>
   );
 };
 

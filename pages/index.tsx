@@ -1,7 +1,6 @@
 import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import PostsList from '../components/PostsList';
-import { EVERYTHING } from '../utils/categories';
 import { getPageData } from '../hygraph/Page';
 import { getPostsCoverData, PostCover } from '../hygraph/Post';
 
@@ -33,7 +32,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       posts,
       categories: header.navbar.categories,
-      category: EVERYTHING,
       panel: panel,
     },
     revalidate: 1,

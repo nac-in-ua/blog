@@ -1,23 +1,27 @@
 import { MouseEvent } from 'react';
-import { BookmarkIcon } from '@heroicons/react/outline';
+import { MdOutlineBookmarkAdd, MdBookmark } from 'react-icons/md';
 
 type PropsType = {
   isSaved: boolean;
+  postId: string;
+  size?: number;
 };
 
-const Bookmark = ({ isSaved }: PropsType) => {
+const Bookmark = ({ postId, isSaved, size = 22 }: PropsType) => {
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
-    console.log('bookbark clicked');
+    console.log(postId);
   };
   return (
-    <div className="group flex cursor-pointer" onClick={handleClick}>
-      <BookmarkIcon
-        className={`h-5 w-5 transition-colors duration-300 ease-in-out ${
-          isSaved
-            ? 'fill-gray-400 group-hover:fill-white'
-            : 'fill-white group-hover:fill-gray-400'
-        }`}
-      />
+    <div
+      className="ml-auto flex cursor-pointer items-center"
+      title="Save this post"
+      onClick={handleClick}
+    >
+      {isSaved ? (
+        <MdBookmark className="text-gray-700" size={size} />
+      ) : (
+        <MdOutlineBookmarkAdd className="text-gray-700" size={size} />
+      )}
     </div>
   );
 };

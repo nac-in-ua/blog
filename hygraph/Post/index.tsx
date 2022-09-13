@@ -1,20 +1,10 @@
 import { client } from '../../utils/client';
 import { gql } from '@apollo/client';
 import { CategoriesItem } from '../Panel';
-import { ElementNode } from '@graphcms/rich-text-types';
 
 export interface KeywordData {
   name: string;
   id: number;
-}
-
-export interface CoverImage {
-  url: string;
-  alt: string;
-  height: number;
-  width: number;
-  mimeType: string;
-  fileName: string;
 }
 
 export type PostCover = {
@@ -25,7 +15,7 @@ export type PostCover = {
   category: CategoriesItem;
   keywords: KeywordData[];
   publishedDateTime: string;
-  coverImage: CoverImage;
+  publishedAt: string;
   likes: number;
   views: number;
   isSaved: boolean;
@@ -50,13 +40,7 @@ export const getPostsCoverData = async (): Promise<PostCover[]> => {
             name
           }
           publishedDateTime
-          coverImage {
-            id
-            url
-            width
-            height
-            alt
-          }
+          publishedAt
           likes
           views
           isSaved
@@ -71,12 +55,7 @@ export const getPostsCoverData = async (): Promise<PostCover[]> => {
 export type Post = {
   id: string;
   title: string;
-  content: {
-    raw: {
-      children: ElementNode[];
-    };
-  };
-  coverImage: CoverImage;
+  markdown: string;
   slug: string;
   shortDescription: string;
   category: CategoriesItem;
@@ -94,22 +73,7 @@ export const getPostsData = async (): Promise<Post[]> => {
       query Posts {
         posts {
           id
-          content {
-            html
-            raw
-            references {
-              ... on Category {
-                id
-                name
-                slug
-              }
-              ... on Post {
-                id
-                slug
-                title
-              }
-            }
-          }
+          markdown
           category {
             name
             slug
@@ -118,14 +82,6 @@ export const getPostsData = async (): Promise<Post[]> => {
           slug
           title
           shortDescription
-          coverImage {
-            url
-            height
-            width
-            mimeType
-            fileName
-            alt
-          }
           keywords {
             id
             name
@@ -140,4 +96,18 @@ export const getPostsData = async (): Promise<Post[]> => {
   });
 
   return data.posts;
+};
+
+export const getPostsSlugs = async (): Promise<string[]> => {
+  const { data } = await client.query({
+    query: gql`
+      query Posts {
+        posts {
+          slug
+        }
+      }
+    `,
+  });
+
+  return data.posts.map((post: Post) => post.slug);
 };

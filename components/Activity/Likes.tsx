@@ -1,21 +1,28 @@
-import { HeartIcon } from '@heroicons/react/outline';
 import { memo } from 'react';
 import { getDividedCount } from '../../utils/format';
+import { IoMdHeartEmpty, IoMdHeart } from 'react-icons/io';
 
 type PropsType = {
+  postId: string;
   count: number;
+  isLiked: boolean;
+  size?: number;
 };
 
-const LikesActivity = ({ count }: PropsType) => {
+const LikesActivity = ({ postId, count, isLiked, size = 22 }: PropsType) => {
   const handleClick = () => {
-    console.log('likes clicked');
+    console.log(postId);
   };
 
   return (
-    <div className="group flex cursor-pointer" onClick={handleClick}>
-      <HeartIcon className="h-5 w-5 transition-colors duration-300 ease-in-out group-hover:text-red-600" />
-      <span className="ml-2">{getDividedCount(count)}</span>
-    </div>
+    <button
+      title="Like this post"
+      className="flex cursor-pointer items-center gap-2"
+      onClick={handleClick}
+    >
+      {isLiked ? <IoMdHeart size={size} /> : <IoMdHeartEmpty size={size} />}
+      <span>{getDividedCount(count)}</span>
+    </button>
   );
 };
 

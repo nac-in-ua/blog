@@ -1,32 +1,22 @@
 import Link from 'next/link';
-import { UserIcon } from '@heroicons/react/outline';
-import { EVERYTHING } from '../utils/categories';
 import React from 'react';
 import { CategoriesItem } from '../hygraph/Panel';
+import { AiOutlineUser } from 'react-icons/ai';
 
 type PropsType = {
   categories: CategoriesItem[];
-  category: CategoriesItem;
 };
 
-const Navbar = ({ categories, category }: PropsType) => {
+const Navbar = ({ categories }: PropsType) => {
   return (
     <>
       <div className="flex h-12 py-2">
         <div className="flex flex-1 items-center self-stretch">
           {categories.map((cat) => {
-            const url =
-              cat.slug === EVERYTHING.slug ? '/' : `/categories/${cat.slug}`;
             return (
               <React.Fragment key={cat.id}>
-                <Link href={url}>
-                  <a
-                    className={`mx-2 flex cursor-pointer hover:text-gray-500 ${
-                      cat.slug === category.slug
-                        ? 'text-gray-700'
-                        : 'text-gray-400'
-                    }`}
-                  >
+                <Link href={`/categories/${cat.slug}`}>
+                  <a className="mx-2 flex cursor-pointer text-gray-700 hover:text-gray-500">
                     {cat.name}
                   </a>
                 </Link>
@@ -39,7 +29,7 @@ const Navbar = ({ categories, category }: PropsType) => {
         </div>
         <div className="flex items-center text-red-500">
           login
-          <UserIcon className="h-5 w-5" />
+          <AiOutlineUser size={20} />
         </div>
       </div>
     </>

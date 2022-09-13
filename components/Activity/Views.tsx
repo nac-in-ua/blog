@@ -1,20 +1,17 @@
-import { EyeIcon } from '@heroicons/react/outline';
 import { memo } from 'react';
 import { getDividedCount } from '../../utils/format';
+import { MdOutlineRemoveRedEye } from 'react-icons/md';
 
 type PropsType = {
   count: number;
+  size?: number;
 };
 
-const ViewsActivity = ({ count }: PropsType) => {
-  const handleClick = () => {
-    console.log('views clicked');
-  };
-
+const ViewsActivity = ({ count, size = 22 }: PropsType) => {
   return (
-    <div className="group flex cursor-pointer" onClick={handleClick}>
-      <EyeIcon className="h-5 w-5 transition-colors duration-300 ease-in-out group-hover:text-yellow-600" />
-      <span className="ml-2">{getDividedCount(count)}</span>
+    <div title="Number of views" className="flex items-center gap-2">
+      <MdOutlineRemoveRedEye size={size} />
+      <div>{getDividedCount(count)}</div>
     </div>
   );
 };
