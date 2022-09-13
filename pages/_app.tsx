@@ -3,10 +3,10 @@ import type { AppProps } from 'next/app';
 import GeneralLayout from '../components/Layouts/General';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { categories, category = '', panel } = pageProps;
+  const { categories, panel } = pageProps;
 
   return (
-    <GeneralLayout categories={categories} category={category} panel={panel}>
+    <GeneralLayout categories={categories} panel={panel}>
       <Component {...pageProps} />
     </GeneralLayout>
   );
