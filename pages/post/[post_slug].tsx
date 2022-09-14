@@ -2,7 +2,7 @@ import type { GetStaticProps } from 'next';
 import Head from 'next/head';
 import { GetStaticPaths } from 'next';
 import { getPageData } from '../../hygraph/Page';
-import { getPostsData, getPostsSlugs, Post } from '../../hygraph/Post';
+import { getPostBySlug, getPostsSlugs, Post } from '../../hygraph/Post';
 
 import { MDXRemote } from 'next-mdx-remote';
 import { mdxToHtml } from '../../lib/mdx';
@@ -60,15 +60,24 @@ export const getStaticPaths: GetStaticPaths = async () => {
         post_slug: slug,
       },
     })),
-    fallback: false,
+    fallback: 'blocking',
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const posts = await getPostsData();
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
+  if (!params) {
+    return { notFound: true };
+  }
+
   const { panel, header } = await getPageData('post');
 
-  const post = posts.filter((post: Post) => post.slug === params!.post_slug)[0];
+  const post = await getPostBySlug(params.post_slug as string);
+  if (!post) {
+    return { notFound: true };
+  }
 
   const { html, readingTime } = await mdxToHtml(post.markdown);
 
@@ -76,7 +85,6 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       post,
       categories: header.navbar.categories,
-      posts,
       panel,
       markdown: html,
       readingTime,

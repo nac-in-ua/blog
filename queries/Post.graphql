@@ -1,0 +1,38 @@
+#import "./fragments/PostMeta.graphql"
+#import "./fragments/Keywords.graphql"
+#import "./fragments/Category.graphql"
+#import "./fragments/Activity.graphql"
+
+query PostBySlug($slug: String!) {
+  post(where: { slug: $slug }) {
+    markdown
+    ...PostMeta
+    ...Activity
+    category {
+      ...Category
+    }
+    keywords {
+      ...Keywords
+    }
+  }
+}
+
+query PostsCover {
+  posts(orderBy: publishedDateTime_DESC) {
+    shortDescription
+    ...PostMeta
+    ...Activity
+    category {
+      ...Category
+    }
+    keywords {
+      ...Keywords
+    }
+  }
+}
+
+query PostsSlugs {
+  posts {
+    slug
+  }
+}

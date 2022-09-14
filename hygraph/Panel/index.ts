@@ -1,5 +1,5 @@
 import { client } from '../../utils/client';
-import { gql } from '@apollo/client';
+import PanelQuery from '../../queries/Panel.graphql';
 
 type PostsItem = {
   id: string;
@@ -45,37 +45,7 @@ export type Panel = {
 
 export const getPanelData = async (id: string): Promise<Panel> => {
   const { data } = await client.query({
-    query: gql`
-      query ($id: ID!) {
-        panel(where: { id: $id }) {
-          id
-          widgets {
-            id
-            name
-            type
-            widgetContent {
-              ... on CategoriesWidget {
-                id
-                categories {
-                  id
-                  name
-                  slug
-                }
-              }
-              ... on PostsWidget {
-                id
-                posts {
-                  id
-                  title
-                  slug
-                }
-              }
-            }
-            type
-          }
-        }
-      }
-    `,
+    query: PanelQuery,
     variables: { id },
   });
 

@@ -1,6 +1,6 @@
 import { client } from '../../utils/client';
-import { gql } from '@apollo/client';
 import { CategoriesItem } from '../Panel';
+import { PostBySlug, PostsSlugs, PostsCover } from '../../queries/Post.graphql';
 
 export interface KeywordData {
   name: string;
@@ -14,7 +14,6 @@ export type PostCover = {
   shortDescription: string;
   category: CategoriesItem;
   keywords: KeywordData[];
-  publishedDateTime: string;
   publishedAt: string;
   likes: number;
   views: number;
@@ -22,33 +21,7 @@ export type PostCover = {
 };
 
 export const getPostsCoverData = async (): Promise<PostCover[]> => {
-  const { data } = await client.query({
-    query: gql`
-      query Posts {
-        posts(orderBy: publishedDateTime_DESC) {
-          id
-          title
-          slug
-          shortDescription
-          category {
-            id
-            name
-            slug
-          }
-          keywords {
-            id
-            name
-          }
-          publishedDateTime
-          publishedAt
-          likes
-          views
-          isSaved
-        }
-      }
-    `,
-  });
-
+  const { data } = await client.query({ query: PostsCover });
   return data.posts;
 };
 
@@ -60,53 +33,26 @@ export type Post = {
   shortDescription: string;
   category: CategoriesItem;
   keywords: KeywordData[];
-  createdAt: string;
   publishedDateTime: string;
   likes: number;
   views: number;
   isSaved: boolean;
 };
 
-export const getPostsData = async (): Promise<Post[]> => {
+export const getPostBySlug = async (slug: string): Promise<Post> => {
   const { data } = await client.query({
-    query: gql`
-      query Posts {
-        posts {
-          id
-          markdown
-          category {
-            name
-            slug
-            id
-          }
-          slug
-          title
-          shortDescription
-          keywords {
-            id
-            name
-          }
-          publishedDateTime
-          views
-          likes
-          isSaved
-        }
-      }
-    `,
+    query: PostBySlug,
+    variables: {
+      slug,
+    },
   });
 
-  return data.posts;
+  return data.post;
 };
 
 export const getPostsSlugs = async (): Promise<string[]> => {
   const { data } = await client.query({
-    query: gql`
-      query Posts {
-        posts {
-          slug
-        }
-      }
-    `,
+    query: PostsSlugs,
   });
 
   return data.posts.map((post: Post) => post.slug);

@@ -1,0 +1,5 @@
+fragment PageMeta on Page {
+  id
+  title
+  slug
+}
