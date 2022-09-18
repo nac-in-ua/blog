@@ -7,6 +7,8 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     const { data, operation } = req.body;
+    console.log('data', data);
+    console.log('operation', operation);
 
     const { verifyWebhookSignature } = require('@graphcms/utils');
     const secret = process.env.CONTENT_WEBHOOK_SECRET;
@@ -17,6 +19,7 @@ export default async function handler(
       signature,
       secret,
     });
+    console.log('isValid', isValid);
 
     if (!isValid) {
       return res.status(401).json({ message: 'Invalid signature' });
@@ -32,6 +35,8 @@ export default async function handler(
             id: data.id,
           },
         });
+        console.log('post', post);
+
         return res.status(200).json({ post });
       } else if (operation === 'delete') {
         const post = await prisma.post.delete({
