@@ -7,11 +7,7 @@ export default async function handler(
 ) {
   if (req.method === 'POST') {
     const { data, operation } = req.body;
-    console.log('data', data);
-    console.log('operation', operation);
-    console.log('VERCEL_ENV', process.env.VERCEL_ENV);
-    
-
+    const { id } = data;
     const { verifyWebhookSignature } = require('@graphcms/utils');
     const secret = process.env.CONTENT_WEBHOOK_SECRET;
     const signature = req.headers['gcms-signature'];
@@ -21,31 +17,27 @@ export default async function handler(
       signature,
       secret,
     });
-    console.log('isValid', isValid);
 
     if (!isValid) {
       return res.status(401).json({ message: 'Invalid signature' });
     }
 
     try {
-      if (!data.id) {
+      if (!id) {
         return res.status(400).json({ message: 'Missing post ID.' });
       }
       if (operation === 'create') {
-        console.log('can create!');
-        
         const post = await prisma.post.create({
           data: {
-            id: data.id,
+            id,
           },
         });
-        console.log('post', post);
 
         return res.status(200).json({ post });
       } else if (operation === 'delete') {
         const post = await prisma.post.delete({
           where: {
-            id: data.id,
+            id,
           },
         });
         return res.status(200).json({ post });
