@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import prisma from '../../../utils/prisma';
+import { prisma } from '../../../utils/prisma';
 // import { unstable_getServerSession } from 'next-auth/next';
 // import { authOptions } from '../auth/[...nextauth]';
 // import { getSession } from 'next-auth/react';
