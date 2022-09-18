@@ -36,8 +36,8 @@ const PostCard = ({ post }: PostCardPropsType) => {
       <CreatedDate dateTime={publishedAt} />
       <div className="">{shortDescription}</div>
       <div className="flex flex-row gap-2">
-        <Views count={views} />
-        <Likes postId={id} count={likes} isLiked={Math.random() > 0.5} />
+        <Views postId={id} />
+        <Likes postId={id} />
         <Bookmark postId={id} isSaved={isSaved} />
       </div>
     </section>

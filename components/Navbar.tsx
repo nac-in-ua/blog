@@ -2,6 +2,7 @@ import Link from 'next/link';
 import React from 'react';
 import { CategoriesItem } from '../hygraph/Panel';
 import { AiOutlineUser } from 'react-icons/ai';
+import LoginButton from './login-btn';
 
 type PropsType = {
   categories: CategoriesItem[];
@@ -28,7 +29,7 @@ const Navbar = ({ categories }: PropsType) => {
           })}
         </div>
         <div className="flex items-center text-red-500">
-          login
+          <LoginButton />
           <AiOutlineUser size={20} />
         </div>
       </div>

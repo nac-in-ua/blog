@@ -12,6 +12,7 @@ import { Category } from '../../components/Badges';
 import Views from '../../components/Activity/Views';
 import Likes from '../../components/Activity/Likes';
 import Bookmark from '../../components/PostTile/Bookmark';
+import { useEffect } from 'react';
 
 type PostPropTypes = {
   post: Post;
@@ -20,7 +21,16 @@ type PostPropTypes = {
 };
 
 const Post = ({ post, markdown, readingTime }: PostPropTypes) => {
-  const { title, id, category, views, likes, isSaved } = post;
+  const { title, id, category, likes, isSaved } = post;
+
+  useEffect(() => {
+    const registerView = () =>
+      fetch(`/api/views/${id}`, {
+        method: 'POST',
+      });
+
+    registerView();
+  }, [id]);
 
   return (
     <>
@@ -37,8 +47,8 @@ const Post = ({ post, markdown, readingTime }: PostPropTypes) => {
           <MDXRemote {...markdown} components={components} />
         </div>
         <div className="mt-8 flex flex-row gap-2">
-          <Views count={views} />
-          <Likes postId={id} count={likes} isLiked={Math.random() > 0.5} />
+          <Views postId={id} />
+          <Likes postId={id} />
           <Bookmark postId={id} isSaved={isSaved} />
         </div>
         <div className="mt-8 flex scroll-mt-16 flex-col gap-2">

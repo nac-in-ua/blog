@@ -11,8 +11,8 @@ export const formatDate = (date: string) => {
   return format(target, 'dd MMMM yyyy HH:mm', { locale: uk });
 };
 
-export const getDividedCount = (count: number) => {
-  if (count < 1000) return count;
+export const getDividedCount = (count: number): string => {
+  if (count < 1000) return `${count}`;
   if (count < 1000000) return `${Math.round(count / 100) / 10}K`;
   return `${Math.round(count / 100000) / 10}M`;
 };
