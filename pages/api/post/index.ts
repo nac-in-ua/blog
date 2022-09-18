@@ -9,6 +9,8 @@ export default async function handler(
     const { data, operation } = req.body;
     console.log('data', data);
     console.log('operation', operation);
+    console.log('VERCEL_ENV', process.env.VERCEL_ENV);
+    
 
     const { verifyWebhookSignature } = require('@graphcms/utils');
     const secret = process.env.CONTENT_WEBHOOK_SECRET;
