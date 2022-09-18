@@ -32,6 +32,8 @@ export default async function handler(
         return res.status(400).json({ message: 'Missing post ID.' });
       }
       if (operation === 'create') {
+        console.log('can create!');
+        
         const post = await prisma.post.create({
           data: {
             id: data.id,
