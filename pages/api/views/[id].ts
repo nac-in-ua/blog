@@ -19,20 +19,32 @@ export default async function handler(
 
   try {
     if (!req.query.id) {
-      res.status(400).json({ message: 'Missing post ID.' });
-      return;
+      return res.status(400).json({ message: 'Missing post ID.' });
     }
     const id = req.query.id.toString();
 
     if (req.method === 'POST') {
-      const postViews = await prisma.post.upsert({
+      // const postViews = await prisma.post.upsert({
+      //   where: {
+      //     id: id?.toString(),
+      //   },
+      //   create: {
+      //     id,
+      //   },
+      //   update: {
+      //     views: {
+      //       increment: 1,
+      //     },
+      //   },
+      //   select: {
+      //     views: true,
+      //   },
+      // });
+      const postViews = await prisma.post.update({
         where: {
           id: id?.toString(),
         },
-        create: {
-          id,
-        },
-        update: {
+        data: {
           views: {
             increment: 1,
           },
