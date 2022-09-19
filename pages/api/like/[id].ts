@@ -28,7 +28,6 @@ export default async function handler(
           },
         },
       });
-      console.log('data', data);
 
       return res.status(200).json({ isLiked: data!.likedPosts.length > 0 });
     }
