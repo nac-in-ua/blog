@@ -50,7 +50,7 @@ const LikesActivity = ({ postId, size = 22 }: PropsType) => {
 
         setIsLiked(data.isLiked);
       } catch (error) {
-        console.log('is liked: ', error);
+        console.error(error);
       } finally {
         setIsLoading(false);
       }
@@ -69,7 +69,7 @@ const LikesActivity = ({ postId, size = 22 }: PropsType) => {
         });
         setIsLiked((isLiked) => !isLiked);
       } catch (error) {
-        console.log('like: ', error);
+        console.error(error);
       } finally {
         setIsLoading(false);
       }
