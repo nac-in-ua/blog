@@ -11,17 +11,7 @@ type PostCardPropsType = {
 };
 
 const PostCard = ({ post }: PostCardPropsType) => {
-  const {
-    title,
-    shortDescription,
-    slug,
-    category,
-    publishedAt,
-    id,
-    likes,
-    views,
-    isSaved,
-  } = post;
+  const { title, shortDescription, slug, category, publishedAt, id } = post;
 
   return (
     <section className="flex flex-col gap-1 p-2">
@@ -38,7 +28,7 @@ const PostCard = ({ post }: PostCardPropsType) => {
       <div className="flex flex-row gap-2">
         <Views postId={id} />
         <Likes postId={id} />
-        <Bookmark postId={id} isSaved={isSaved} />
+        <Bookmark postId={id} />
       </div>
     </section>
   );

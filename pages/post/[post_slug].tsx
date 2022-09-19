@@ -49,7 +49,7 @@ const Post = ({ post, markdown, readingTime }: PostPropTypes) => {
         <div className="mt-8 flex flex-row gap-2">
           <Views postId={id} />
           <Likes postId={id} />
-          <Bookmark postId={id} isSaved={isSaved} />
+          <Bookmark postId={id} />
         </div>
         <div className="mt-8 flex scroll-mt-16 flex-col gap-2">
           <Comments postId={id} />
