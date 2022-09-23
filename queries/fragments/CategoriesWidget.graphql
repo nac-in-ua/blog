@@ -1,0 +1,8 @@
+#import "./Category.graphql"
+
+fragment CategoriesWidget on CategoriesWidget {
+  id
+  categories {
+    ...Category
+  }
+}

@@ -1,0 +1,19 @@
+#import "./fragments/PostMeta.graphql"
+#import "./fragments/Category.graphql"
+#import "./fragments/CategoriesWidget.graphql"
+#import "./fragments/PostsWidget.graphql"
+
+query ($id: ID!) {
+  panel(where: { id: $id }) {
+    id
+    widgets {
+      id
+      name
+      type
+      widgetContent {
+        ...CategoriesWidget
+        ...PostsWidget
+      }
+    }
+  }
+}

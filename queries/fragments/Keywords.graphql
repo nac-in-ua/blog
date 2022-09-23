@@ -1,0 +1,4 @@
+fragment Keywords on Keyword {
+  id
+  name
+}

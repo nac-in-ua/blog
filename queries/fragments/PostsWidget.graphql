@@ -1,0 +1,8 @@
+#import "./PostMeta.graphql"
+
+fragment PostsWidget on PostsWidget {
+  id
+  posts {
+    ...PostMeta
+  }
+}
