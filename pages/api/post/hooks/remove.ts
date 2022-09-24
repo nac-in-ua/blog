@@ -9,11 +9,11 @@ export default async function handler(
     const { data, operation } = req.body;
     const { id } = data;
 
-    if (!id) {
+    if (!id || operation !== 'delete') {
       return res.status(400).json({ message: 'Missing post ID.' });
     }
 
-    if (operation !== 'create') {
+    if (operation !== 'delete') {
       return res.status(400).json({ message: 'Wrong hook operation.' });
     }
 
@@ -32,15 +32,15 @@ export default async function handler(
     }
 
     try {
-      console.log('Creating post...');
+      console.log('Deleting post...');
 
-      const post = await prisma.post.create({
-        data: {
+      const post = await prisma.post.delete({
+        where: {
           id,
         },
       });
 
-      console.log('Post created:', post);
+      console.log('Post deleted...', post);
 
       return res.status(200).json({ post });
     } catch (error: any | unknown) {
