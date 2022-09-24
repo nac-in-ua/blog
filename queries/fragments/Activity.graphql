@@ -1,5 +1,0 @@
-fragment Activity on Post {
-  likes
-  views
-  isSaved
-}
