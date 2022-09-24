@@ -27,19 +27,28 @@ export default async function handler(
         return res.status(400).json({ message: 'Missing post ID.' });
       }
       if (operation === 'create') {
+        console.log('Creating post...');
+
         const post = await prisma.post.create({
           data: {
             id,
           },
         });
 
+        console.log('Post created:', post);
+
         return res.status(200).json({ post });
       } else if (operation === 'delete') {
+        console.log('Deleting post...');
+
         const post = await prisma.post.delete({
           where: {
             id,
           },
         });
+
+        console.log('Post deleted...', post);
+        
         return res.status(200).json({ post });
       }
     } catch (error: any | unknown) {
