@@ -42,7 +42,7 @@ export default async function handler(
 
       console.log('Post deleted...', post);
 
-      return res.status(200).json({ post });
+      return res.status(200).json({ id: post.id });
     } catch (error: any | unknown) {
       return res.status(500).json({ message: error.message });
     }
