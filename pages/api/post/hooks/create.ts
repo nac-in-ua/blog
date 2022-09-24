@@ -39,11 +39,16 @@ export default async function handler(
 
         return res.status(200).json({ post });
       } else if (operation === 'delete') {
+        console.log('Deleting post...');
+
         const post = await prisma.post.delete({
           where: {
             id,
           },
         });
+
+        console.log('Post deleted...', post);
+        
         return res.status(200).json({ post });
       }
     } catch (error: any | unknown) {
