@@ -9,7 +9,7 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=tests
+      - MYSQL_DATABASE=blog
       - MYSQL_USER=prisma
     ports:
       - '3306:3306'
