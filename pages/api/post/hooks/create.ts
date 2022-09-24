@@ -8,6 +8,11 @@ export default async function handler(
   if (req.method === 'POST') {
     const { data, operation } = req.body;
     const { id } = data;
+    
+    if (!id) {
+      return res.status(400).json({ message: 'Missing post ID.' });
+    }
+
     const { verifyWebhookSignature } = require('@graphcms/utils');
     const secret = process.env.CONTENT_WEBHOOK_SECRET;
     const signature = req.headers['gcms-signature'];
@@ -23,9 +28,6 @@ export default async function handler(
     }
 
     try {
-      if (!id) {
-        return res.status(400).json({ message: 'Missing post ID.' });
-      }
       if (operation === 'create') {
         console.log('Creating post...');
 
@@ -48,7 +50,7 @@ export default async function handler(
         });
 
         console.log('Post deleted...', post);
-        
+
         return res.status(200).json({ post });
       }
     } catch (error: any | unknown) {
