@@ -12,7 +12,7 @@ export default async function handler(
     return res.status(401).json({ message: 'Invalid token' });
   }
 
-  const post = await getPostBySlug(req.query.slug as string);
+  const post = await getPostBySlug(req.query.slug as string, true);
   if (!post) {
     return res.status(401).json({ message: 'Invalid slug' });
   }
