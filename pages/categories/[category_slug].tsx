@@ -48,8 +48,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const posts = await getPostsCoverData();
+export const getStaticProps: GetStaticProps = async ({
+  params,
+  preview = false,
+}) => {
+  const posts = await getPostsCoverData(preview);
   const { panel, header } = await getPageData('category');
 
   return {
@@ -60,6 +63,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
       )[0],
       categories: header.navbar.categories,
       panel,
+      preview,
     },
     revalidate: 1,
   };

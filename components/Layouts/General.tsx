@@ -3,18 +3,16 @@ import Footer from '../Footer';
 import Link from 'next/link';
 import MainPanel from '../Panels/MainPanel';
 import { CategoriesItem, Panel } from '../../hygraph/Panel';
+import { PreviewInfoPanel } from '../PreviewInfoPanel';
 
 type PropsType = {
   children: React.ReactNode;
   categories: CategoriesItem[];
   panel: Panel;
+  preview?: boolean;
 };
 
-export default function GeneralLayout({
-  children,
-  categories,
-  panel,
-}: PropsType) {
+export default function GeneralLayout({ children, categories, panel, preview }: PropsType) {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="bg-slate-300 text-xl uppercase">
@@ -34,6 +32,7 @@ export default function GeneralLayout({
         </aside>
       </main>
       <footer className="mt-auto">
+        {preview && <PreviewInfoPanel />}
         <Footer />
       </footer>
     </div>
