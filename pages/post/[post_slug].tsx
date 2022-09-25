@@ -84,7 +84,7 @@ export const getStaticProps: GetStaticProps = async ({
 
   const { panel, header } = await getPageData('post');
 
-  const post = await getPostBySlug(params.post_slug as string);
+  const post = await getPostBySlug(params.post_slug as string, preview);
   if (!post) {
     return { notFound: true };
   }
@@ -98,6 +98,7 @@ export const getStaticProps: GetStaticProps = async ({
       panel,
       markdown: html,
       readingTime,
+      preview,
     },
     revalidate: 1,
   };

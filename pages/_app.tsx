@@ -8,16 +8,17 @@ type BlogAppProps = AppProps & {
   pageProps: AppProps['pageProps'] & {
     categories: CategoriesItem[];
     panel: Panel;
+    preview?: boolean;
     session: SessionProviderProps['session'];
   };
 };
 
 function MyApp({ Component, pageProps }: BlogAppProps) {
-  const { categories, panel } = pageProps;
+  const { categories, panel, preview } = pageProps;
 
   return (
     <SessionProvider session={pageProps.session}>
-      <GeneralLayout categories={categories} panel={panel}>
+      <GeneralLayout categories={categories} panel={panel} preview={preview}>
         <Component {...pageProps} />
       </GeneralLayout>
     </SessionProvider>

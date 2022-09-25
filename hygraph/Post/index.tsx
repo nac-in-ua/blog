@@ -1,4 +1,3 @@
-import { client } from '../../utils/client';
 import { CategoriesItem } from '../Panel';
 import {
   PostBySlug,
@@ -6,6 +5,7 @@ import {
   PostsCover,
   PostSlugAndCategorySlugById,
 } from '../../queries/Post.graphql';
+import { createClient } from '../../utils/hygraph';
 
 export interface KeywordData {
   name: string;
@@ -25,9 +25,12 @@ export type PostCover = {
   isSaved: boolean;
 };
 
-export const getPostsCoverData = async (): Promise<PostCover[]> => {
-  const { data } = await client.query({ query: PostsCover });
-  return data.posts;
+export const getPostsCoverData = async (
+  preview: boolean = false
+): Promise<PostCover[]> => {
+  const localClient = createClient(preview);
+  const { posts } = await localClient.request(PostsCover);
+  return posts;
 };
 
 export type Post = {
@@ -44,15 +47,13 @@ export type Post = {
   isSaved: boolean;
 };
 
-export const getPostBySlug = async (slug: string): Promise<Post> => {
-  const { data } = await client.query({
-    query: PostBySlug,
-    variables: {
-      slug,
-    },
-  });
-
-  return data.post;
+export const getPostBySlug = async (
+  slug: string,
+  preview: boolean = false
+): Promise<Post> => {
+  const localClient = createClient(preview);
+  const { post } = await localClient.request(PostBySlug, { slug });
+  return post;
 };
 
 type RevalidationData = {
@@ -63,23 +64,20 @@ type RevalidationData = {
 export const getPostSlugAndCategorySlugById = async (
   id: string
 ): Promise<RevalidationData> => {
-  const { data } = await client.query({
-    query: PostSlugAndCategorySlugById,
-    variables: {
-      id,
-    },
+  const localClient = createClient(false);
+  const { post } = await localClient.request(PostSlugAndCategorySlugById, {
+    id,
   });
 
   return {
-    postSlug: data.post.slug,
-    categorySlug: data.post.category.slug,
+    postSlug: post.slug,
+    categorySlug: post.category.slug,
   };
 };
 
-export const getPostsSlugs = async (): Promise<string[]> => {
-  const { data } = await client.query({
-    query: PostsSlugs,
-  });
+export const getPostsSlugs = async (preview = false): Promise<string[]> => {
+  const localClient = createClient(preview);
+  const { posts } = await localClient.request(PostsSlugs);
 
-  return data.posts.map((post: Post) => post.slug);
+  return posts.map((post: Post) => post.slug);
 };

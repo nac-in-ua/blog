@@ -24,15 +24,16 @@ const Home: NextPage<HomePropsType> = ({ posts }) => {
 };
 export default Home;
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async ({ preview = false }) => {
   const { panel, header } = await getPageData('index');
-  const posts = await getPostsCoverData();
+  const posts = await getPostsCoverData(preview);
 
   return {
     props: {
       posts,
       categories: header.navbar.categories,
       panel: panel,
+      preview,
     },
     revalidate: 1,
   };
