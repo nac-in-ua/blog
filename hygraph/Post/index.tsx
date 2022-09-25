@@ -1,6 +1,11 @@
 import { client } from '../../utils/client';
 import { CategoriesItem } from '../Panel';
-import { PostBySlug, PostsSlugs, PostsCover } from '../../queries/Post.graphql';
+import {
+  PostBySlug,
+  PostsSlugs,
+  PostsCover,
+  PostSlugAndCategorySlugById,
+} from '../../queries/Post.graphql';
 
 export interface KeywordData {
   name: string;
@@ -48,6 +53,27 @@ export const getPostBySlug = async (slug: string): Promise<Post> => {
   });
 
   return data.post;
+};
+
+type RevalidationData = {
+  postSlug: string;
+  categorySlug: string;
+};
+
+export const getPostSlugAndCategorySlugById = async (
+  id: string
+): Promise<RevalidationData> => {
+  const { data } = await client.query({
+    query: PostSlugAndCategorySlugById,
+    variables: {
+      id,
+    },
+  });
+
+  return {
+    postSlug: data.post.slug,
+    categorySlug: data.post.category.slug,
+  };
 };
 
 export const getPostsSlugs = async (): Promise<string[]> => {

@@ -3,6 +3,7 @@ declare module '*/Post.graphql' {
 
   export const PostBySlug: DocumentNode;
   export const PostsCover: DocumentNode;
+  export const PostSlugAndCategorySlugById: DocumentNode;
   export const PostsSlugs: DocumentNode;
 }
 
