@@ -1,4 +1,4 @@
-import type { GetStaticProps, GetServerSideProps, NextPage } from 'next';
+import type { GetStaticProps, NextPage } from 'next';
 import Head from 'next/head';
 import PostsList from '../components/PostsList';
 import { getPageData } from '../hygraph/Page';

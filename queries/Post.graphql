@@ -28,6 +28,15 @@ query PostsCover {
   }
 }
 
+query PostSlugAndCategorySlugById($id: ID!) {
+  post(where: { id: $id }) {
+    slug
+    category {
+      slug
+    }
+  }
+}
+
 query PostsSlugs {
   posts {
     slug
